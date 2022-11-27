@@ -23,15 +23,15 @@
 
     // Recoge los datos para el gráfico de turbidez
     
-	$sql = "SELECT unidades as count FROM Datos_turbidez order by id DESC LIMIT 10 ";
+	$sql = "SELECT sensorTurbidez as count FROM medidas_sensor order by id DESC LIMIT 10 ";
 	$turb = mysqli_query($mysqli,$sql);
     $turb = mysqli_fetch_all($turb,MYSQLI_ASSOC);
     $turb=array_reverse($turb);
 	$turb = json_encode(array_column($turb, 'count'),JSON_NUMERIC_CHECK);
     
-    $sql1 = "SELECT *FROM Datos_turbidez order by id DESC LIMIT 10 ";
-	$hora = mysqli_query($mysqli,$sql1);
-    $hora= mysqli_fetch_all($hora,MYSQLI_NUM);
+    $sql1 = "SELECT *FROM medidas_sensor order by id DESC LIMIT 10 ";
+	$turbidez = mysqli_query($mysqli,$sql1);
+    $turbidez= mysqli_fetch_all($turbidez,MYSQLI_NUM);
     
 	//$hora = json_encode(array_column($hora, 'count'),JSON_NUMERIC_CHECK);
     
@@ -45,8 +45,27 @@
            <title> Operario</title>
            	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 	        <script src="https://code.highcharts.com/highcharts.js"></script>
+	        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
        </head>
        <body>
+      
+       <?php
+        $maxturb=700;
+         if($turbidez[0][2]>$maxturb){
+       ?>
+          <script>
+              
+              swal.fire({
+                   
+                   title: "Alerta \n Turbidez = <?php echo $turbidez[0][2]?> MTU"
+               });
+               
+              
+          </script>
+
+        <?php   
+          }
+        ?> 
 
         <script type="text/javascript">
 
@@ -62,7 +81,7 @@
                 text: 'Ultimos 10 datos medidos de turbidez '
                 },
                 xAxis: {
-                categories: ['<?php echo $hora[9][3]?>','<?php echo $hora[8][3]?>','<?php echo $hora[7][3]?>','<?php echo $hora[6][3]?>','<?php echo $hora[5][3]?>','<?php echo $hora[4][3]?>','<?php echo $hora[3][3]?>','<?php echo $hora[2][3]?>','<?php echo $hora[1][3]?>','<?php echo $hora[0][3]?>']
+                categories: ['<?php echo $turbidez[9][4]?>','<?php echo $turbidez[8][4]?>','<?php echo $turbidez[7][4]?>','<?php echo $turbidez[6][4]?>','<?php echo $turbidez[5][4]?>','<?php echo $turbidez[4][4]?>','<?php echo $turbidez[3][4]?>','<?php echo $turbidez[2][4]?>','<?php echo $turbidez[1][4]?>','<?php echo $turbidez[0][4]?>']
                 },
                 yAxis: {
                 title: {
@@ -183,7 +202,9 @@
       </tr>
     </table>
 <br><br><hr>
-    
+    <script>
+       setInterval("location.reload()",20000);
+        </script>
  </body>
 </html>
 

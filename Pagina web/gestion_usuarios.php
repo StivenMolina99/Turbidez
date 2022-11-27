@@ -91,8 +91,7 @@ include "menu_admin.php";
       if (isset($_GET["mensaje"]))
       {
         $mensaje = $_GET["mensaje"];
-        if ($_GET["mensaje"]!=""){
-      ?>
+        if ($_GET["mensaje"]!=""){?>
       
   		     <tr>
              <td> </td>
