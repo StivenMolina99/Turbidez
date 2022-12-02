@@ -52,7 +52,7 @@ include "menu_admin.php";
 ?>   
  	    <tr valign="top">
         <td height="20%" align="center" bgcolor="#D5F5E3" class="_espacio_celdas" style="color: #FFFFFF; font-weight: bold">
-			    <font FACE="arial" SIZE=2 color="black"> <b><h1>Consulta Aciones realizadas (por rango de fechas)</h1></b></font>  
+			    <font FACE="arial" SIZE=2 color="black"> <b><h1>Consulta Acciones realizadas (por rango de fechas)</h1></b></font>  
 
 		       </td>
 	          <td height="20%" align="right" 				
