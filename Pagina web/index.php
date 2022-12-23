@@ -28,10 +28,11 @@
            <td valign="top" align=left width=70%>
               <table width="100%" align=center border=0>
             	   <tr>
-                  <td valign="top" align=center width=30%>
+                 <td valign="top" align=left width=10%>
+                  <img src="img/logo.jpg" border=0 width=300 height=100>
              	    </td>
                   <td valign="top" align=center width=60%>
-                     <h1><font color=green>Sistema Monitoreo de Turbidez </font></h1>
+                     <h1><font color=#21618C>Sistema Monitoreo de Turbidez </font></h1>
              	    </td>
            	    </tr>
          	    </table>
@@ -42,9 +43,13 @@
 	     </tr>
      </table>
     <div class="ensayotbla">
-     
+         
+    
+        
         <table>
+    
            <tr>
+           
              <th colspan="2" > <font color=white> <H2>Ingreso de Usuarios</H2> </font></th>
          </tr>
        

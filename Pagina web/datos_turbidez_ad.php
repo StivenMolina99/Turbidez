@@ -32,6 +32,12 @@
     $sql1 = "SELECT *FROM medidas_sensor order by id DESC LIMIT 10 ";
 	$turbidez = mysqli_query($mysqli,$sql1);
     $turbidez= mysqli_fetch_all($turbidez,MYSQLI_NUM);
+
+    $sql2 = "SELECT *FROM MaximaTurbidez order by id DESC LIMIT 1 ";
+	$max = mysqli_query($mysqli,$sql2);
+    $max= mysqli_fetch_all($max,MYSQLI_NUM);
+
+    $maxturb = $max[0][1];
     
 	//$hora = json_encode(array_column($hora, 'count'),JSON_NUMERIC_CHECK);
     
@@ -48,26 +54,9 @@
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	           
        </head>
-       <body>
-         
-       <?php
-        $maxturb=700;
-         if($turbidez[0][2]>$maxturb){
-       ?>
-          <script>
-              
-              swal.fire({
-                   
-                title: "Alerta \n Turbidez = <?php echo $turbidez[0][2]?> MTU"
-               });
-               
-              
-          </script>
-
-        <?php   
-          }
-        ?> 
-
+       <body> 
+       
+       
 
            <script type="text/javascript">
 
@@ -107,10 +96,12 @@
               <table width="100%" align=center border=0>
             	   <tr>
                   <td valign="top" align=center width=30%>
-                    
+                  <img src="img/logo.jpg" border=0 width=300 height=100>
              	    </td>
+                     
+             	   
                   <td valign="top" align=center width=60%>
-                     <h1><font color=green>Sistema Monitoreo de Turbidez </font></h1>
+                     <h1><font color="#21618C">Sistema Monitoreo de Turbidez </font></h1>
              	    </td>
            	    </tr>
          	    </table>
@@ -136,8 +127,130 @@
     		    <font FACE="arial" SIZE=2 color="Black"> <b><h1>Registros de Turbidez</h1></b></font>  
 	       </td>
 	    </tr>
-	  </table>
+
+      <?php
+
+if ((isset($_POST["enviado"])))
+{
+$enviado = $_POST["enviado"];
+if ($enviado == "S1")
+ {
+    $maxturb = $_POST["maxturb"];  // en esta variable se almacena el dato de la maxima turbidez que se tiene para generar la alerta
+    $mysqli = new mysqli($host, $user, $pw, $db); // Aquí se hace la conexión a la base de datos.
+
+    $sql = "INSERT INTO MaximaTurbidez(maxturb) 
+      VALUES ('$maxturb')";
+      //echo "sql es...".$sql;
+      $result1 = $mysqli->query($sql);
+
+    $maxturb = $maxturb;
+?>
+
+ </table>
+   <table width="80%" align=center cellpadding=5 border=0 bgcolor="#D5F5E3">
+      <tr>
+      <td valign="top" align=center bgcolor="#E1E1E1" colspan=6>
+         <b>Turbidez máxima:  <?php echo $maxturb; ?> </b>
+      </td>
+      </tr>
+      </table>
+
+      <?php
+         if($turbidez[0][2]>$maxturb){
+       ?>
+          <script>
+              
+              swal.fire({
+                   
+                title: "Alerta \n Turbidez = <?php echo $turbidez[0][2]?> MTU"
+               });
+               
+              
+          </script>
+
+        <?php   
+          }
+        ?>
+    
     <table width="100%" align=center cellpadding=5 border=0 bgcolor="#D5F5E3">
+    <tr>
+     <td align=left width=50%>
+
+  <div class="container">
+     <br>
+         <h2 class="text-center">Gr&aacute;fico </h2>
+              <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+              <div class="panel panel-default">
+              <div class="panel-heading">Panel</div>
+              <div class="panel-body">
+              <div id="container"></div>
+              </div>
+              </div>
+              </div>
+              </div>
+  </div>
+
+    </td>
+
+    </tr>
+<?php
+
+echo '
+   <tr>	
+     <form method=POST action="datos_turbidez_ad.php">
+               <td bgcolor="#D5F5E3" align=center colspan=6> 
+                 <input type="submit" value="Volver" name="Volver">  
+       </td>	
+     </form>	
+    </tr>';
+
+
+ } // FIN DEL IF, si ya se han recibido las fechas del formulario
+}  // FIN DEL IF, si la variable enviado existe, que es cuando ya se envío el formulario
+else
+ {
+    
+?>   
+  
+  <?php
+         if($turbidez[0][2]>$maxturb){
+       ?>
+          <script>
+              
+              swal.fire({
+                   
+                title: "Alerta \n Turbidez = <?php echo $turbidez[0][2]?> MTU"
+               });
+               
+              
+          </script>
+
+        <?php   
+          }
+        ?>
+
+ </table>	 
+ <table width="70%" align=left cellpadding=5 border=0 bgcolor="#D5F5E3">
+  <form method=POST action="datos_turbidez_ad.php">
+       <tr>	
+           <td bgcolor="#D5F5E3" align=left> 
+                  <font FACE="arial" SIZE=2 color="black"> <b>Cambiar máxima turbidez:</b></font>  
+               </td>	
+               <td bgcolor="#EEEEEE" align=center> 
+                 <input type="text" name="maxturb" value="" required>  
+       </td>	
+     	
+               <td bgcolor="#D5F5E3" align=center colspan=2> 
+                 <input type="hidden" name="enviado" value="S1">  
+                 <input style="background-color: #1A9CF7" type="submit" color= blue value="Actualizar" name="Consultar">  
+         </form>
+       </td>	
+
+      </tr>
+      </table>
+    
+      <table width="100%" align=center cellpadding=5 border=0 bgcolor="#D5F5E3">
       <tr>
        <td align=left width=50%>
 
@@ -159,10 +272,16 @@
       </td>
 
       </tr>
-    </table>
+
+<?php
+ } 
+?>    
+
+    
+</table>
 <br><br><hr>
 <script>
-       setInterval("location.reload()",20000);
+       setInterval("location.reload()",40000);
         </script>
  </body>
 </html>

@@ -203,7 +203,7 @@
     </table>
 <br><br><hr>
     <script>
-       setInterval("location.reload()",20000);
+       setInterval("location.reload()",40000);
         </script>
  </body>
 </html>

@@ -31,9 +31,10 @@ else
               <table width="100%" align=center border=0>
             	   <tr>
                   <td valign="top" align=center width=30%>
+                  <img src="img/logo.jpg" border=0 width=300 height=100>
              	    </td>
                   <td valign="top" align=center width=60%>
-                     <h1><font color=green>Sistema Monitoreo de Turbidez </font></h1>
+                     <h1><font color=#21618C>Sistema Monitoreo de Turbidez </font></h1>
              	    </td>
            	    </tr>
          	    </table>
@@ -140,16 +141,16 @@ while($row1 = $result1->fetch_array(MYSQLI_NUM))
     <table width="70%" align=center cellpadding=5 border=0 bgcolor="#D5F5E3">
      <form method=POST action="Datos_Turbidez_x_rango_ad.php">
  	     <tr>	
-      		<td bgcolor="#A8DDA8" align=center> 
-			   	  <font FACE="arial" SIZE=2 color="#004400"> <b>Fecha Inicial:</b></font>  
+      		<td bgcolor="#D5F5E3" align=center> 
+			   	  <font FACE="arial" SIZE=2 color="black"> <b>Fecha Inicial:</b></font>  
 				  </td>	
 				  <td bgcolor="#EEEEEE" align=center> 
 				    <input type="date" name="fecha_ini" value="" required>  
           </td>	
 	     </tr>
  	     <tr>	
-      		<td bgcolor="#A8DDA8" align=center> 
-			   	  <font FACE="arial" SIZE=2 color="#004400"> <b>Fecha Final:</b></font>  
+      		<td bgcolor="#D5F5E3" align=center> 
+			   	  <font FACE="arial" SIZE=2 color="black"> <b>Fecha Final:</b></font>  
 				  </td>	
 				  <td bgcolor="#EEEEEE" align=center> 
 				    <input type="date" name="fecha_fin" value="" required>  

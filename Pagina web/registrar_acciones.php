@@ -173,9 +173,6 @@ else
 ?>
 
         </table>
-         <script>
-       setInterval("location.href='datos_turbidez_op.php'",60000);
-        </script>
        </body>
       </html>
 
